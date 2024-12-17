@@ -96,7 +96,7 @@ function Home() {
           ))}
           
           <motion.a
-            href="/resume.pdf"
+            href="https://drive.google.com/file/d/1068RZOZRIyEiuqd4hfZBhzfsXXr6bvyY/view?usp=sharing"
             target="_blank"
             className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
             initial={{ opacity: 0, y: 20 }}
