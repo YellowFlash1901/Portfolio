@@ -15,7 +15,7 @@ const projectsData = [
   },
   {
     name: 'Reconstructor',
-    description: 'Genome-scale Metabolic Tool UI',
+    description: 'Genome-scale Metabolic Tool',
     tech: ['Flask', 'Python', 'Django'],
     link: 'http://reconstructor.humanmetabolism.org/',
     highlights: [

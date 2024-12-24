@@ -68,7 +68,7 @@ function About() {
         >
           <p className="text-lg text-gray-300 leading-relaxed mb-6">
             I'm a passionate Full Stack Developer with a strong background in software engineering and data analytics. 
-            Currently pursuing an M.Sc. in Data Analytics at the National University of Ireland, Galway, 
+            Currently Graduated with a M.Sc. in Data Analytics at the National University of Ireland, Galway, 
             I bring a unique blend of technical skills and analytical thinking to my projects.
           </p>
           <p className="text-lg text-gray-300 leading-relaxed">
