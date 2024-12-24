@@ -33,7 +33,23 @@ function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-16 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-16 px-4     flex 
+          flex-col 
+          justify-center 
+          items-center 
+          px-4 
+          relative 
+          bg-cover 
+          bg-center
+          bg-no-repeat
+        "
+        style={{
+
+          backgroundImage: `url("https://media1.tenor.com/m/Be1rIVucE8MAAAAd/mha-bnha.gif")`,
+        }}
+    
+    
+    >
       <div className="max-w-4xl mx-auto">
         <motion.h2 
           className="text-4xl md:text-5xl font-bold text-center mb-10 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300"

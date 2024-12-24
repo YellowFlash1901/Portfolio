@@ -10,6 +10,7 @@ function Contact() {
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState(null);
 
+  const WEB3FORMS_ACCESS_KEY =  import.meta.env.VITE_API_KEY;
   const validateForm = () => {
     const newErrors = {};
     
@@ -37,33 +38,69 @@ function Contact() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (validateForm()) {
-      // Simulate form submission
-      setSubmitStatus('success');
-      
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setFormData({ name: '', email: '', message: '' });
-        setSubmitStatus(null);
-      }, 3000);
+    if (!validateForm()) {
+      return; // Stop if the form is invalid
+    }
+    console.log("WEB3FORMS_ACCESS_KEY",WEB3FORMS_ACCESS_KEY)
+
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: 'New Contact Form Submission', // you can customize this
+          name: formData.name,
+          email: formData.email,
+          message: formData.message
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setFormData({ name: '', email: '', message: '' });
+          setSubmitStatus(null);
+        }, 3000);
+      } else {
+        // Optionally handle error from Web3Forms
+        // e.g. setSubmitStatus('error')
+        console.error('Web3Forms Error:', result);
+      }
+    } catch (error) {
+      // Handle or log error
+      console.error('Submission error:', error);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-16 px-4 flex items-center justify-center">
+    <div
+      className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-16 px-4 flex items-center justify-center flex-col"
+      style={{
+        backgroundImage: `url("https://media1.tenor.com/m/W7C3oTWm9TMAAAAd/naruto-minato.gif")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
       <motion.div 
         className="w-full max-w-md"
         initial={{ opacity: 0, scale: 0.9 }}
@@ -131,7 +168,7 @@ function Contact() {
               placeholder="Message"
               className={`w-full p-3 rounded-lg bg-gray-800 text-white border-2 transition-all duration-300 resize-none
                 ${errors.message ? 'border-red-500' : 'border-transparent focus:border-blue-500'}`}
-            ></textarea>
+            />
             {errors.message && (
               <motion.p 
                 className="text-red-500 text-sm mt-1"
@@ -146,9 +183,11 @@ function Contact() {
           <motion.button 
             type="submit"
             className={`w-full py-3 rounded-lg transition-all duration-300 
-              ${submitStatus === 'success' 
-                ? 'bg-green-500 text-white' 
-                : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
+              ${
+                submitStatus === 'success'
+                  ? 'bg-green-500 text-white' 
+                  : 'bg-blue-600 hover:bg-blue-700 text-white'
+              }`}
             whileHover={{ scale: submitStatus ? 1 : 1.05 }}
             whileTap={{ scale: submitStatus ? 1 : 0.95 }}
           >
