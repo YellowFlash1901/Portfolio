@@ -54,7 +54,6 @@ function Contact() {
     if (!validateForm()) {
       return; // Stop if the form is invalid
     }
-    console.log("WEB3FORMS_ACCESS_KEY",WEB3FORMS_ACCESS_KEY)
 
 
     try {
